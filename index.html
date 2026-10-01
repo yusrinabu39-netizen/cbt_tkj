@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CBT Teknik Komputer dan Jaringan</title>
+<style>
+:root{--bg:#f5f7fa;--card:#fff;--tx:#1a2333;--mu:#5b6678;--bd:#dde3ec;--ac:#1f6feb;--ok:#1a7f4b;--no:#c62828;--wa:#b7791f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1521;--card:#182031;--tx:#e8edf6;--mu:#93a0b6;--bd:#2a3550;--ac:#5aa0ff;--ok:#4cc38a;--no:#ff7b7b;--wa:#f0b429}}
+:root[data-theme="dark"]{--bg:#0f1521;--card:#182031;--tx:#e8edf6;--mu:#93a0b6;--bd:#2a3550;--ac:#5aa0ff;--ok:#4cc38a;--no:#ff7b7b;--wa:#f0b429}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:20px;margin-bottom:14px}
+h1{font-size:1.5rem;margin:0 0 6px}
+p{margin:0 0 12px;color:var(--mu)}
+input{width:100%;padding:12px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit;margin-bottom:14px}
+button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);padding:10px 16px}
+button.pri{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:600}
+button:disabled{opacity:.4;cursor:default}
+.hide{display:none}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.tm{font-weight:700;font-variant-numeric:tabular-nums;padding:6px 12px;border-radius:999px;border:1px solid var(--bd);background:var(--card)}
+.tm.low{color:var(--no);border-color:var(--no)}
+.q{font-size:1.1rem;font-weight:600;margin:0 0 14px}
+.opt{display:flex;gap:10px;width:100%;text-align:left;margin-bottom:8px;padding:12px}
+.opt b{min-width:22px;color:var(--mu)}
+.opt.sel{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 14%,var(--card))}
+.row{display:flex;justify-content:space-between;gap:8px;margin-top:12px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
+.grid button{padding:6px 0;font-size:.85rem}
+.grid .done{background:color-mix(in srgb,var(--ac) 22%,var(--card))}
+.grid .flag{border-color:var(--wa);box-shadow:inset 0 0 0 1px var(--wa)}
+.grid .now{outline:2px solid var(--ac)}
+.score{font-size:3rem;font-weight:800;margin:0}
+.rv{border-left:4px solid var(--bd);padding:8px 12px;margin:10px 0}
+.rv.ok{border-color:var(--ok)}.rv.no{border-color:var(--no)}
+.rv small{color:var(--mu);display:block}
+.msg{color:var(--wa);margin-top:10px;font-size:.9rem}
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th,.tbl td{padding:8px 6px;border-bottom:1px solid var(--bd);text-align:left}
+.tbl th{color:var(--mu);font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stats div{border:1px solid var(--bd);border-radius:10px;padding:10px;text-align:center}
+.stats b{display:block;font-size:1.4rem}
+.ok-t{color:var(--ok);font-weight:600}.no-t{color:var(--no);font-weight:600}
+.wrap{overflow-x:auto}
+.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--bd)}
+.site div{max-width:720px;margin:0 auto;padding:8px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.site strong{color:var(--ac)}
+.site nav button{border:0;background:none;padding:6px 10px;font-weight:600;color:var(--mu)}
+.site nav button.on{color:var(--ac);box-shadow:inset 0 -2px 0 var(--ac);border-radius:0}
+.hero{background:linear-gradient(135deg,#1f6feb,#0b3d91);color:#fff;border-radius:16px;padding:28px 22px;margin-bottom:14px}
+.hero h1{font-size:1.7rem;line-height:1.25}.hero p{color:#e2ecff}
+.hero button{background:#fff;color:#0b3d91;border-color:#fff;font-weight:700}
+.chips span{display:inline-block;padding:4px 12px;margin:0 6px 6px 0;border-radius:999px;border:1px solid var(--bd);background:color-mix(in srgb,var(--ac) 12%,var(--card));font-size:.9rem}
+ol{color:var(--mu);padding-left:20px;margin:0}li{margin-bottom:6px}
+footer{text-align:center;color:var(--mu);font-size:.85rem;padding:8px 0 20px}
+textarea{width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:.85rem/1.4 ui-monospace,Menlo,Consolas,monospace;margin-top:10px}
+@media(max-width:480px){.grid{grid-template-columns:repeat(5,1fr)}}
+</style>
+</head>
+<body>
+<header class="site"><div><strong>🖧 TKJ Belajar</strong><nav>
+<button class="on" data-n="4" onclick="nav(4)">Beranda</button><button data-n="0" onclick="nav(0)">Ujian CBT</button><button id="nr" class="hide" data-n="3" onclick="nav(3)">Rekap Guru</button></nav></div></header>
+<main>
+<section id="sh">
+<div class="hero"><h1>Latihan CBT Teknik Komputer dan Jaringan</h1><p>Uji pemahamanmu tentang dasar-dasar jaringan komputer. Nilai langsung keluar lengkap dengan pembahasan tiap soal.</p><button onclick="show(0)">Mulai Ujian →</button></div>
+<div class="stats"><div><b>20</b>Soal</div><div><b>30</b>Menit</div><div><b>70</b>KKM</div></div>
+<div class="card"><h2 style="margin:0 0 10px;font-size:1.15rem">Topik yang diujikan</h2><div class="chips"><span>Model OSI</span><span>IP Address &amp; Subnetting</span><span>DHCP &amp; DNS</span><span>Perangkat Jaringan</span><span>Topologi</span><span>Kabel &amp; Konektor</span><span>Protokol &amp; Port</span><span>Keamanan</span><span>Perintah Dasar</span></div></div>
+<div class="card"><h2 style="margin:0 0 10px;font-size:1.15rem">Cara mengerjakan</h2><ol><li>Buka menu <b>Ujian CBT</b> dan isi nama lengkap.</li><li>Jawab 20 soal dalam 30 menit. Gunakan tanda <b>Ragu-ragu</b> untuk soal yang ingin dicek lagi.</li><li>Klik <b>Kumpulkan Jawaban</b> agar nilai tersimpan.</li><li>Pelajari pembahasan, lalu ulangi bila belum mencapai KKM.</li></ol></div>
+</section>
+<section id="s0" class="card hide">
+<h1>CBT Teknik Komputer dan Jaringan</h1>
+<p>Latihan 20 soal pilihan ganda. Waktu 30 menit. Urutan soal dan pilihan diacak setiap sesi.</p>
+<input id="nm" placeholder="Nama peserta" maxlength="40">
+<button class="pri" onclick="start()">Mulai Ujian</button>
+<button id="tc" class="hide" onclick="openRecap()">📊 Rekap Nilai Siswa (Guru)</button>
+<div class="msg" id="hist"></div>
+</section>
+
+<section id="s1" class="hide">
+<div class="top"><strong id="who"></strong><span class="tm" id="tm">30:00</span></div>
+<div class="card">
+<small id="no" style="color:var(--mu)"></small>
+<p class="q" id="qt"></p>
+<div id="op"></div>
+<div class="row">
+<button onclick="go(-1)" id="pv">← Sebelumnya</button>
+<button onclick="flag()" id="fl">⚑ Ragu-ragu</button>
+<button class="pri" onclick="go(1)" id="nx">Berikutnya →</button>
+</div>
+</div>
+<div class="card">
+<div class="grid" id="gr"></div>
+<div class="row"><span id="cnt" style="color:var(--mu)"></span><button class="pri" onclick="fin(false)">Kumpulkan Jawaban</button></div>
+<div class="msg" id="mg"></div>
+</div>
+</section>
+
+<section id="s2" class="hide">
+<div class="card">
+<small id="rn" style="color:var(--mu)"></small>
+<p class="score" id="sc"></p>
+<p id="st"></p>
+<div class="msg" id="sv"></div>
+<div class="row" style="justify-content:flex-start"><button onclick="copyRes()">📋 Salin Hasil untuk Guru</button><button class="pri" onclick="show(0)">Ulangi Ujian</button></div>
+<div class="msg" id="cps"></div>
+<textarea id="cpt" class="hide" rows="7" readonly></textarea>
+</div>
+<div class="card"><h2 style="margin-top:0;font-size:1.1rem">Pembahasan</h2><div id="rv"></div></div>
+</section>
+<section id="s3" class="hide">
+<div class="card">
+<div class="top"><h2 style="margin:0;font-size:1.2rem">Rekap Nilai Siswa</h2><span><button id="ex" class="hide" onclick="exportCsv()">⬇ Ekspor CSV</button> <button onclick="show(4)">← Beranda</button></span></div>
+<div class="stats"><div><b id="c1">0</b>Siswa</div><div><b id="c2">0</b>Rata-rata terbaik</div><div><b id="c3">0%</b>Lulus</div></div>
+<div class="wrap"><table class="tbl"><thead><tr><th>Nama</th><th>Coba</th><th>Terakhir</th><th>Tertinggi</th><th>Status</th><th>Aksi</th></tr></thead><tbody id="rb"></tbody></table></div>
+<p id="re" style="margin-top:10px"></p>
+</div>
+<div class="card hide" id="im"><h2 style="margin:0 0 6px;font-size:1.2rem">Tempel Hasil Siswa</h2><p>Tempel teks dari tombol "Salin Hasil" milik siswa (boleh banyak sekaligus). Data tersimpan di browser ini.</p><textarea id="imp" rows="6" placeholder="Tempel hasil siswa di sini..."></textarea><div class="row" style="justify-content:flex-start"><button class="pri" onclick="importRes()">Proses ke Rekap</button><button onclick="clearImp()">Hapus Semua Data</button></div><div class="msg" id="imm"></div></div>
+<div class="card"><h2 style="margin:0 0 6px;font-size:1.2rem">Analisis Per Soal</h2><p>Diurutkan dari soal yang paling sering salah (dihitung dari semua percobaan).</p><div class="wrap"><table class="tbl"><thead><tr><th>Soal</th><th>Salah</th></tr></thead><tbody id="qb"></tbody></table></div></div>
+</section>
+<footer>Latihan Teknik Komputer dan Jaringan</footer>
+</main>
+<script>
+// [soal, jawaban benar, salah1, salah2, salah3, pembahasan]
+const D=[
+["Layer OSI yang bertanggung jawab atas pengalamatan logis (alamat IP) adalah...","Network","Data Link","Transport","Session","Layer Network (layer 3) menangani pengalamatan logis dan routing."],
+["Alamat IPv4 memiliki panjang...","32 bit","16 bit","64 bit","128 bit","IPv4 terdiri dari 32 bit, sedangkan IPv6 128 bit."],
+["IP address 192.168.1.10 termasuk kelas...","C","A","B","D","Kelas C berada pada rentang 192–223 di oktet pertama."],
+["Subnet mask untuk prefix /24 adalah...","255.255.255.0","255.255.0.0","255.255.255.128","255.0.0.0","/24 berarti 24 bit jaringan: 255.255.255.0."],
+["Protokol yang memberikan alamat IP secara otomatis kepada klien adalah...","DHCP","DNS","FTP","SNMP","DHCP mendistribusikan IP, subnet mask, gateway, dan DNS secara otomatis."],
+["Port default untuk HTTPS adalah...","443","80","21","25","HTTPS memakai port 443, HTTP memakai port 80."],
+["Fungsi utama DNS adalah...","Menerjemahkan nama domain menjadi alamat IP","Memberi IP otomatis","Mengamankan koneksi jarak jauh","Mengirim email","DNS me-resolve nama domain (misal google.com) ke alamat IP."],
+["Perangkat yang menghubungkan dua jaringan berbeda dan menentukan jalur paket adalah...","Router","Hub","Repeater","Switch","Router bekerja di layer 3 dan meneruskan paket antar jaringan."],
+["Topologi di mana semua node terhubung ke satu perangkat pusat disebut...","Star","Bus","Ring","Mesh","Topologi star memakai switch/hub sebagai titik pusat."],
+["Kabel UTP straight-through umumnya dipakai untuk menghubungkan...","PC ke switch","PC ke PC","Switch ke switch (tanpa Auto-MDIX)","Router ke router","Straight untuk perangkat berbeda jenis; crossover untuk perangkat sejenis."],
+["Konektor standar yang dipakai pada kabel UTP adalah...","RJ-45","BNC","RJ-11","SC","RJ-45 memiliki 8 pin untuk kabel UTP Ethernet."],
+["Perintah untuk menguji konektivitas ke host lain adalah...","ping","ipconfig","netstat","nslookup","ping mengirim ICMP Echo Request untuk menguji jangkauan host."],
+["Protokol untuk remote login yang terenkripsi dan berjalan pada port 22 adalah...","SSH","Telnet","FTP","HTTP","SSH mengenkripsi sesi; Telnet (port 23) mengirim data tanpa enkripsi."],
+["Jumlah host valid pada jaringan dengan prefix /26 adalah...","62","64","30","126","2^6 = 64 alamat, dikurangi alamat network dan broadcast = 62 host."],
+["Perangkat yang meneruskan frame berdasarkan alamat MAC adalah...","Switch","Router","Modem","Repeater","Switch bekerja di layer 2 dan memakai tabel MAC address."],
+["Protokol yang khusus untuk transfer file antar komputer adalah...","FTP","SMTP","ARP","ICMP","FTP (port 21) dipakai untuk mengunggah dan mengunduh file."],
+["Standar jaringan nirkabel (Wi-Fi) ditetapkan oleh IEEE dengan kode...","802.11","802.3","802.1Q","802.5","802.11 untuk WLAN; 802.3 adalah standar Ethernet."],
+["Fungsi utama firewall adalah...","Menyaring lalu lintas jaringan berdasarkan aturan","Menguatkan sinyal","Menerjemahkan domain","Menyimpan file server","Firewall mengizinkan atau memblokir paket sesuai kebijakan keamanan."],
+["Alamat loopback yang dipakai untuk menguji TCP/IP pada komputer sendiri adalah...","127.0.0.1","192.168.0.1","10.0.0.1","255.255.255.255","Rentang 127.0.0.0/8 dicadangkan untuk loopback (localhost)."],
+["Perintah pada Windows untuk menampilkan konfigurasi IP adalah...","ipconfig","ifconfig","traceroute","arp -d","ipconfig menampilkan IP, mask, dan gateway; ifconfig dipakai di Linux."]
+];
+let Q=[],A=[],F=[],cur=0,t=0,iv,nm='';
+const $=i=>document.getElementById(i);
+const sh=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function show(n){['s0','s1','s2','s3','sh'].forEach((s,i)=>$(s).classList.toggle('hide',i!==n));document.querySelectorAll('[data-n]').forEach(b=>b.classList.toggle('on',+b.dataset.n===n));window.scrollTo(0,0)}
+function nav(n){if(!$('s1').classList.contains('hide'))return;show(n)}
+function start(){
+ nm=$('nm').value.trim()||'Peserta';
+ Q=sh(D.map((d,i)=>({d,i}))).map(({d,i})=>{const o=sh([d[1],d[2],d[3],d[4]]);return{i,q:d[0],o,a:o.indexOf(d[1]),e:d[5]}});
+ A=Array(20).fill(-1);F=Array(20).fill(false);cur=0;t=1800;
+ $('who').textContent=nm;show(1);render();tick();clearInterval(iv);iv=setInterval(tick,1000);
+}
+function tick(){
+ const m=String(Math.floor(t/60)).padStart(2,'0'),s=String(t%60).padStart(2,'0');
+ $('tm').textContent=m+':'+s;$('tm').classList.toggle('low',t<=300);
+ if(t--<=0){fin(true)}
+}
+function render(){
+ const q=Q[cur];
+ $('no').textContent='Soal '+(cur+1)+' dari 20';$('qt').textContent=q.q;
+ $('op').innerHTML=q.o.map((o,i)=>`<button class="opt ${A[cur]===i?'sel':''}" onclick="pick(${i})"><b>${'ABCD'[i]}.</b><span>${o}</span></button>`).join('');
+ $('pv').disabled=cur===0;$('nx').disabled=cur===19;
+ $('fl').textContent=F[cur]?'⚑ Batalkan ragu':'⚑ Ragu-ragu';
+ $('gr').innerHTML=Q.map((_,i)=>`<button class="${A[i]>=0?'done':''} ${F[i]?'flag':''} ${i===cur?'now':''}" onclick="cur=${i};render()">${i+1}</button>`).join('');
+ $('cnt').textContent='Terjawab: '+A.filter(x=>x>=0).length+'/20';
+ $('mg').textContent='';
+}
+function pick(i){A[cur]=i;render()}
+function go(d){cur=Math.min(19,Math.max(0,cur+d));render()}
+function flag(){F[cur]=!F[cur];render()}
+let warned=false;
+function fin(force){
+ const empty=A.filter(x=>x<0).length;
+ if(!force&&empty>0&&!warned){warned=true;$('mg').textContent='Masih ada '+empty+' soal belum dijawab. Klik "Kumpulkan Jawaban" sekali lagi untuk mengakhiri.';return}
+ warned=false;clearInterval(iv);
+ const ok=Q.filter((q,i)=>A[i]===q.a).length,sc=ok*5;
+ $('rn').textContent=nm+' · Benar '+ok+' dari 20 · Kosong '+empty;
+ $('sc').textContent=sc;
+ $('sc').style.color=sc>=70?'var(--ok)':'var(--no)';
+ $('st').textContent=sc>=70?'Selamat, kamu LULUS (KKM 70).':'Belum lulus (KKM 70). Pelajari pembahasan lalu coba lagi.';
+ $('rv').innerHTML=Q.map((q,i)=>{const good=A[i]===q.a;
+  return `<div class="rv ${good?'ok':'no'}"><b>${i+1}. ${q.q}</b><small>Jawabanmu: ${A[i]<0?'(kosong)':q.o[A[i]]} ${good?'✓':'✗'}</small>${good?'':`<small>Jawaban benar: ${q.o[q.a]}</small>`}<small>${q.e}</small></div>`}).join('');
+ show(2);
+ const r=Array(20).fill('0');Q.forEach((q,i)=>{if(A[i]===q.a)r[q.i]='1'});
+ $('cpt').classList.add('hide');$('cps').textContent='';
+ LR={name:nm,sc,ok,empty,r:r.join(''),ts:Date.now()};
+ const L0=lsGet(LS)||{attempts:[]};L0.name=nm;
+ L0.attempts=L0.attempts.concat([{sc,ok,empty,r:LR.r,ts:LR.ts}]).slice(-20);lsSet(LS,L0);
+ save(ok,sc,empty,LR.r);
+}
+
+// ===== Penyimpanan & rekap nilai =====
+let db=null,usr=null,uid=null;
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function save(ok,sc,empty,r){
+ const el=$('sv');el.textContent='';
+ if(!db||!uid){el.textContent='Nilai disimpan di perangkat ini. Klik "Salin Hasil untuk Guru" lalu kirim ke guru.';return}
+ try{
+  const ref=db.doc('results/'+uid),snap=await ref.get();
+  const prev=snap.exists?(snap.data().attempts||[]):[];
+  await ref.set({name:nm,attempts:prev.concat([{sc,ok,empty,r,ts:Date.now()}]).slice(-20)});
+  el.textContent='Nilai tersimpan ke rekap guru.';
+ }catch(e){el.textContent='Nilai belum tersimpan. Minta guru memberi akses Kontributor pada halaman ini.'}
+}
+let snapC=null,pend=null,dl=null,RS=[];
+function renderRecap(snap){snapC=snap;draw()}
+function draw(){
+ if(!snapC)return;
+ const rows=snapC.docs.map(d=>Object.assign({id:d.id},d.data())).filter(d=>d.attempts&&d.attempts.length).sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+ RS=rows;let sum=0,pass=0;
+ $('rb').innerHTML=rows.map(r=>{
+  const a=r.attempts,last=a[a.length-1].sc,best=Math.max(...a.map(x=>x.sc));
+  sum+=best;if(best>=70)pass++;
+  return `<tr><td>${esc(r.name)}</td><td>${a.length}</td><td>${last}</td><td><b>${best}</b></td><td class="${best>=70?'ok-t':'no-t'}">${best>=70?'Lulus':'Remedial'}</td><td><button onclick="del('${esc(r.id)}')">${pend===r.id?'Yakin?':'Reset'}</button></td></tr>`}).join('');
+ $('c1').textContent=rows.length;
+ $('c2').textContent=rows.length?Math.round(sum/rows.length):0;
+ $('c3').textContent=rows.length?Math.round(pass*100/rows.length)+'%':'0%';
+ $('re').textContent=rows.length?'Status memakai nilai tertinggi (KKM 70). Tombol Reset menghapus semua nilai siswa itu (klik dua kali).':'Belum ada siswa yang mengerjakan.';
+ const st=D.map((d,i)=>({i,n:0,w:0}));
+ rows.forEach(r=>r.attempts.forEach(a=>{if(a.r&&a.r.length===20)a.r.split('').forEach((c,i)=>{st[i].n++;if(c==='0')st[i].w++})}));
+ const qs=st.filter(x=>x.n).sort((a,b)=>b.w/b.n-a.w/a.n);
+ $('qb').innerHTML=qs.length?qs.map(x=>{const p=Math.round(x.w*100/x.n);return `<tr><td>${esc(D[x.i][0])}</td><td style="min-width:90px"><b>${p}%</b> <small>(${x.w}/${x.n})</small><div style="height:6px;border-radius:3px;background:var(--no);width:${p}%"></div></td></tr>`}).join(''):'<tr><td colspan="2">Belum ada data per soal.</td></tr>';
+}
+async function del(id){
+ if(pend!==id){pend=id;draw();setTimeout(()=>{if(pend===id){pend=null;draw()}},4000);return}
+ pend=null;
+ if(!db){delete IM[id];lsSet(LI,IM);snapC=mk();draw();return}
+ try{await db.doc('results/'+id).delete()}catch(e){$('re').textContent='Gagal mereset nilai siswa.'}
+}
+async function exportCsv(){
+ if(!RS.length){$('re').textContent='Belum ada data untuk diekspor.';return}
+ const q=v=>{v=String(v);if(/^[=+\-@]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'};
+ const L=[['Nama','Percobaan','Nilai Terakhir','Nilai Tertinggi','Status','Riwayat Nilai'].map(q).join(',')];
+ RS.forEach(r=>{const a=r.attempts,best=Math.max(...a.map(x=>x.sc));L.push([r.name,a.length,a[a.length-1].sc,best,best>=70?'Lulus':'Remedial',a.map(x=>x.sc).join(' | ')].map(q).join(','))});
+ const data='\ufeff'+L.join('\r\n');
+ if(dl){try{await dl.save({filename:'rekap-nilai-tkj.csv',data})}catch(e){if(e&&e.code!=='declined')$('re').textContent='Ekspor gagal.'}}
+ else{try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'text/csv;charset=utf-8'}));a.download='rekap-nilai-tkj.csv';document.body.appendChild(a);a.click();a.remove()}catch(e){$('re').textContent='Ekspor gagal.'}}
+}
+// ===== Penyimpanan lokal, salin hasil, dan impor guru =====
+const LS='cbt-tkj-lokal',LI='cbt-tkj-rekap';
+let LR=null,IM={},cc=false;
+function lsGet(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function mk(){return{docs:Object.keys(IM).map(k=>({id:k,data:()=>IM[k]}))}}
+function resText(){
+ const x=LR,n=x.name.replace(/\|/g,' ');
+ return 'HASIL CBT TKJ\nNama: '+n+'\nNilai: '+x.sc+' ('+(x.sc>=70?'Lulus':'Remedial')+')\nBenar: '+x.ok+'/20 | Kosong: '+x.empty+'\nWaktu: '+new Date(x.ts).toLocaleString('id-ID')+'\nKode: TKJ|'+n+'|'+x.sc+'|'+x.ok+'|'+x.empty+'|'+x.r+'|'+x.ts;
+}
+async function copyRes(){
+ if(!LR)return;
+ const t=resText(),b=$('cpt');
+ b.value=t;b.classList.remove('hide');b.focus();b.select();
+ try{
+  if(navigator.clipboard&&navigator.clipboard.writeText)await navigator.clipboard.writeText(t);
+  else if(!document.execCommand('copy'))throw 0;
+  $('cps').textContent='Hasil disalin. Tempel dan kirim ke guru.';
+ }catch(e){$('cps').textContent='Teks sudah dipilih. Tekan Ctrl+C (atau tahan lalu Salin di HP), lalu kirim ke guru.'}
+}
+function importRes(){
+ let bad=0,add=0;
+ $('imp').value.split(/\r?\n/).forEach(l=>{
+  const i=l.indexOf('TKJ|');if(i<0)return;
+  const p=l.slice(i).trim().split('|');
+  if(p.length<7||isNaN(+p[2])||isNaN(+p[6])){bad++;return}
+  const nmx=p[1].trim(),k=nmx.toLowerCase();
+  const o=IM[k]=IM[k]||{name:nmx,attempts:[]};
+  if(o.attempts.some(a=>a.ts===+p[6]))return;
+  o.attempts.push({sc:+p[2],ok:+p[3],empty:+p[4],r:p[5],ts:+p[6]});add++;
+  o.attempts.sort((a,b)=>a.ts-b.ts);
+ });
+ lsSet(LI,IM);snapC=mk();draw();$('imp').value='';
+ $('imm').textContent=add+' hasil baru ditambahkan.'+(bad?' '+bad+' baris tidak dikenali.':'');
+}
+function clearImp(){
+ if(!cc){cc=true;$('imm').textContent='Klik "Hapus Semua Data" sekali lagi untuk konfirmasi.';setTimeout(()=>{cc=false},4000);return}
+ cc=false;IM={};lsSet(LI,IM);snapC=mk();draw();$('imm').textContent='Semua data rekap di browser ini dihapus.';
+}
+function mandiri(){
+ ['nr','tc','ex','im'].forEach(i=>$(i).classList.remove('hide'));
+ IM=lsGet(LI)||{};snapC=mk();draw();
+}
+const L1=lsGet(LS);
+if(L1&&L1.attempts&&L1.attempts.length){$('hist').textContent='Percobaan sebelumnya di perangkat ini: '+L1.attempts.map(x=>x.sc).join(', ');$('nm').value=L1.name||''}
+function openRecap(){show(3)}
+(async()=>{
+ try{
+  if(!window.claude){mandiri();return}
+  db=await claude.use('db');usr=await claude.use('user');
+  if(!db||!usr)return;
+  uid=await usr.id();
+  if(!uid)return;
+  if(usr.isOwner()||usr.canEdit()){
+   $('tc').classList.remove('hide');$('nr').classList.remove('hide');
+   claude.use('downloads').then(x=>{dl=x;if(x)$('ex').classList.remove('hide')}).catch(()=>{});
+   db.collection('results').onSnapshot(renderRecap,()=>{});
+  }else{
+   const sn=await db.doc('results/'+uid).get();
+   if(sn.exists){const a=sn.data().attempts||[];if(a.length)$('hist').textContent='Percobaan sebelumnya: '+a.map(x=>x.sc).join(', ')}
+  }
+ }catch(e){}
+})();
+</script>
+</body>
+</html>
